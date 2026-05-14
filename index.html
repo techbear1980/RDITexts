@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Red Dragon TTS Audio Player</title>
+    <title>Red Dragon TTS — Greyport Chronicles</title>
     <style>
         * {
             margin: 0;
@@ -12,465 +12,577 @@
         }
 
         body {
-            background: linear-gradient(145deg, #0b1a2e 0%, #07121f 100%);
+            background: linear-gradient(145deg, #0e1a24 0%, #060e14 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', 'Roboto', sans-serif;
-            padding: 1.5rem;
+            font-family: 'Segoe UI', 'Palatino', 'Georgia', system-ui, 'Inter', serif;
+            padding: 2rem 1.5rem;
         }
 
-        /* elegant card container */
-        .audio-card {
-            max-width: 680px;
+        /* Main card container — atmospheric, rugged, quest-log style */
+        .dragon-journal {
+            max-width: 880px;
             width: 100%;
-            background: rgba(22, 34, 48, 0.75);
+            background: rgba(18, 28, 34, 0.85);
             backdrop-filter: blur(12px);
-            border-radius: 3rem;
-            padding: 2rem 2rem 2.5rem;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid rgba(230, 100, 50, 0.3);
+            border-radius: 2.5rem;
+            padding: 2rem 2rem 2.2rem;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(230, 100, 50, 0.35);
+            transition: transform 0.2s ease;
+            border: 1px solid rgba(200, 110, 50, 0.4);
         }
 
-        .audio-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 32px 55px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(230, 100, 50, 0.5);
+        .dragon-journal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.7), 0 0 0 1px #e65c2e80;
         }
 
-        /* dragon-inspired decorative header */
-        .title-section {
+        /* header area with dragon flair */
+        .header-section {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(230, 100, 46, 0.5);
+            padding-bottom: 0.75rem;
+        }
+
+        .title-group {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.6rem;
-            border-left: 4px solid #e65c2e;
-            padding-left: 1.2rem;
+            gap: 0.6rem;
         }
 
-        .title-section h1 {
-            font-size: 1.9rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #f3c68e, #e68a2e);
+        .dragon-emblem {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 5px #b9471e);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f5cf9b, #e6863a);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.3px;
         }
 
-        .dragon-icon {
-            font-size: 2rem;
-            filter: drop-shadow(0 2px 5px rgba(230, 92, 46, 0.4));
+        .sub {
+            font-size: 0.8rem;
+            color: #c0aa7a;
+            background: #1e2a2f80;
+            padding: 0.25rem 0.75rem;
+            border-radius: 30px;
+            backdrop-filter: blur(2px);
         }
 
-        /* main text block — atmospheric storytelling */
-        .text-block {
-            background: rgba(10, 20, 28, 0.7);
+        /* SCROLLABLE TEXT BLOCK — main story area */
+        .story-scroll {
+            background: rgba(6, 14, 18, 0.7);
             border-radius: 1.8rem;
-            padding: 1.6rem 2rem;
-            margin: 1.8rem 0 2.2rem 0;
-            border: 1px solid rgba(230, 140, 70, 0.35);
-            backdrop-filter: blur(4px);
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3), 0 8px 18px rgba(0,0,0,0.2);
+            padding: 0rem;
+            margin: 1rem 0 1.8rem 0;
+            border: 1px solid rgba(210, 130, 70, 0.4);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.3);
+            max-height: 460px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #e6733a #2d2b26;
         }
 
-        .text-block p {
-            color: #f0ede8;
-            font-size: 1.12rem;
+        /* custom webkit scrollbar */
+        .story-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .story-scroll::-webkit-scrollbar-track {
+            background: #231f1c;
+            border-radius: 10px;
+            margin-block: 6px;
+        }
+
+        .story-scroll::-webkit-scrollbar-thumb {
+            background: #bc5a2c;
+            border-radius: 10px;
+        }
+
+        .story-scroll::-webkit-scrollbar-thumb:hover {
+            background: #e6723a;
+        }
+
+        .story-content {
+            padding: 1.6rem 2rem;
+            color: #ede6da;
+            font-size: 1rem;
             line-height: 1.55;
             font-weight: 400;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
         }
 
-        .text-block p:first-child {
-            margin-bottom: 1rem;
+        .story-content p {
+            margin-bottom: 1.1rem;
         }
 
-        .text-block .highlight {
-            color: #ffb347;
-            font-weight: 500;
-            border-bottom: 1px dashed #e65c2e;
-        }
-
-        /* button area */
-        .audio-controls {
-            display: flex;
-            justify-content: center;
-            margin: 1.8rem 0 1.2rem;
-        }
-
-        .play-btn {
-            background: linear-gradient(105deg, #d94a1e 0%, #b8310a 100%);
-            border: none;
-            padding: 1rem 2.6rem;
-            border-radius: 3rem;
-            font-size: 1.3rem;
+        .story-content strong {
+            color: #ffbc6e;
             font-weight: 600;
+        }
+
+        .story-content em {
+            color: #cfb28b;
+            font-style: italic;
+        }
+
+        /* audio button panel */
+        .audio-section {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 0.5rem 0 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4rem;
+            padding: 0.6rem 1.2rem 0.6rem 1.8rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-play {
+            background: linear-gradient(110deg, #cc551f, #aa3f0e);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
             color: white;
             display: inline-flex;
             align-items: center;
-            gap: 0.9rem;
+            gap: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 10px 20px -5px rgba(185, 55, 10, 0.5);
-            border: 1px solid rgba(255, 160, 90, 0.6);
-            letter-spacing: 0.5px;
+            box-shadow: 0 6px 14px rgba(160, 50, 10, 0.4);
+            border: 1px solid #ffa15e;
         }
 
-        .play-btn:hover {
-            background: linear-gradient(105deg, #e55a2c 0%, #c53d14 100%);
+        .btn-play:hover {
+            background: linear-gradient(110deg, #e2642a, #bc4718);
             transform: scale(1.02);
-            box-shadow: 0 15px 25px -7px rgba(220, 70, 20, 0.6);
-            border-color: #ffa25b;
+            box-shadow: 0 10px 20px rgba(200, 70, 10, 0.5);
         }
 
-        .play-btn:active {
-            transform: scale(0.98);
-            transition: 0.05s;
+        .btn-play:active {
+            transform: scale(0.97);
         }
 
-        /* button icon + text */
-        .btn-icon {
-            font-size: 1.6rem;
-            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
-        }
-
-        /* status message (subtle, informative) */
-        .status-area {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #c0bcb0;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            display: inline-block;
-            width: auto;
-            backdrop-filter: blur(4px);
-            font-weight: 400;
-        }
-
-        .status-container {
+        .status-panel {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            background: #10181ecc;
+            padding: 0.4rem 1.3rem;
+            border-radius: 3rem;
+            font-size: 0.85rem;
+            color: #ddd0bc;
         }
 
-        /* loading / fallback */
-        .error-msg {
-            color: #ff8a6f;
-            background: #2a1810;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
+        .status-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background-color: #70b570;
+            box-shadow: 0 0 4px #9eff9e;
+            transition: background 0.1s;
+        }
+
+        .status-led.playing {
+            background-color: #e67e22;
+            box-shadow: 0 0 6px #ffa04c;
+            animation: pulse 0.9s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.9);}
+            100% { opacity: 1; transform: scale(1.2);}
+        }
+
+        .filename-badge {
+            font-family: monospace;
+            background: #00000055;
+            padding: 0.2rem 0.8rem;
+            border-radius: 24px;
+            font-size: 0.7rem;
         }
 
         /* footer */
-        .github-hint {
+        .footer-note {
             text-align: center;
-            margin-top: 2rem;
             font-size: 0.7rem;
-            color: #6e7b8c;
-            border-top: 1px solid rgba(200, 150, 100, 0.2);
-            padding-top: 1.2rem;
+            margin-top: 1.5rem;
+            color: #7b8a6e;
+            border-top: 1px solid #4a3e2e60;
+            padding-top: 1rem;
         }
 
-        @media (max-width: 520px) {
-            .audio-card {
-                padding: 1.5rem;
+        @media (max-width: 650px) {
+            .dragon-journal {
+                padding: 1.3rem;
             }
-            .text-block {
-                padding: 1.2rem 1.4rem;
+            .story-content {
+                padding: 1rem 1.2rem;
             }
-            .play-btn {
-                padding: 0.8rem 2rem;
-                font-size: 1.1rem;
+            .audio-section {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 2rem;
+                padding: 0.9rem;
             }
-            .title-section h1 {
-                font-size: 1.5rem;
+            .btn-play {
+                justify-content: center;
+            }
+            .status-panel {
+                justify-content: center;
+            }
+            h1 {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="audio-card">
-    <div class="title-section">
-        <span class="dragon-icon">🐉🔥</span>
-        <h1>Dragon's TTS Chronicles</h1>
+<div class="dragon-journal">
+    <div class="header-section">
+        <div class="title-group">
+            <span class="dragon-emblem">🐉⚔️</span>
+            <h1>Red Dragon TTS ·  Greyport Files</h1>
+        </div>
+        <div class="sub">📜 adventure log · ogres, smugglers & a deal</div>
     </div>
 
-    <!-- Main text block: atmospheric / descriptive text -->
-    <div class="text-block">
-        <p>✨ <span class="highlight">From the ember-lit peaks of the Red Dragon's lair</span> — a voice echoes through time. 
-        Ancient runes flicker as the <strong>Red Dragon TTS</strong> weaves its incantation. Each syllable carries the 
-        weight of forgotten lore, molten wisdom, and the fierce cadence of draconic speech. </p>
-        <p>🌀 Press the <strong>play button</strong> below to invoke the audio enchantment. Let the resonant tones 
-        guide you through epic tales, powerful narrations, or magical announcements. <br>
-        <em style="color:#e6b87e;">“By flame and thunder — hear the voice of the Red Dragon.”</em></p>
+    <!-- SCROLLABLE TEXT BLOCK with the full mission text from provided file -->
+    <div class="story-scroll">
+        <div class="story-content">
+            <p><strong>Mission text</strong></p>
+            <p>Having liberated the ogres, arrested the surviving smugglers, and taken the Runners' ship in tow, you return to Greyport Harbor: You turn over the freed ogres to the Harbor Patrol for processing and release to their homelands, after making numerous assurances that no, the ogres, are not, in fact, an advance raiding party bent on destroying the city. At least, not this time.</p>
+
+            <p>Following that, you are once again reacquainted with the complex bureaucratic machinery of the city, as the Harbor Patrol requests that you take the captured smugglers to the City Guard. When Zot protests that it would be much easier and make more sense for the Harbor Patrol to just do its job and take custody of the seafaring slavers, they point out that the slavers are, currently, on land, and thus fall under the jurisdiction of the Guard.</p>
+
+            <p>Later that evening, you help incarcerate the surviving slavers at City Guard headquarters.</p>
+
+            <p>Well, all but one, anyway. You take Grolnar, captain of the Runners' ship, back to the Danger Room beneath the Red Dragon Inn for some quality alone time.</p>
+
+            <p>"I don't trust him!" shouts Deirdre, the expression on her face indicating that there is a likely storm of holy smiting in the weather forecast.</p>
+
+            <p>Captain Grolnar, expertly tied to one of the Danger Room's broken and deactivated robots, Lowers his head and wiggles his peg leg as much as he can. "Fair enough, lassie, If I be ye, l'd not trust me as far as I could be throwin' me."</p>
+
+            <p>"We don't use that as a measure of trusting people anymore," says Fiona with a grin, leaning in toward the captive captain. "It turns out that Gog can throw people pretty far..." Gog grunts and flexes his massive arms. If possible, Captain Grolnar turns even more grey.</p>
+
+            <p>"All right, all right," says Gerki, pushing past Fiona and Deirdre. "It's high time that the two of you stopped playing Bad Guard and Worse Guard. You're right, though, we can't trust him. Which means that we need to make a deal sweet enough so that Captain Grolnar here has no reason not to go along with it. Right?" Grolnar bobs his head in agreement. As much as he can, anyway. "Aye. That be the right of it, lad."</p>
+
+            <p>"Great. Here's the plan. You complete the handoff, making it look as real as possible. Then you take the money and you..." Gerki runs his fingers through his thick, wavy hair, glances at Deirdre, and sighs. "...you donate it —all of it— to the Great Temple Reconstruction Fund."</p>
+
+            <p>"Oh, I like that," says Deirdre, brightly.</p>
+
+            <p>"Knew you would," replies Gerki, his smile looking artificial and crooked. "Then, after that, you keep your head down, you leave Greyport, and you never come back. You got that?"</p>
+
+            <p>"I savvy, lad, " says Grolnar, "and I'd shake on that deal, so ye'd know I'd keep my word, except..." the leathery old sea dog gestures with his head at the ropes that bind him fast.</p>
+
+            <p>"We know," says Deirdre, her face looking a touch stormy again. "But we're going to keep you tied up for now, just in case."</p>
+
+            <p>Later, your party approaches Lord Maybury's estate. It's one of the older residences in the city, all columns and buttresses and crenellations and whatnot, decorated with hanging lanterns, well-manicured pathways, marble fountains, classically-carved statues that are definitely art, and random shapes made out of stone or wood that are... probably art.</p>
+
+            <p>Eve has worked her illusion magic on your behalf, disguising you all as a pack of warty, slouching, uncouth ogres clad in very thick metal chains. Thus enchanted, you follow Grolnar single-file down around to the back of the estate, where he taps a secret knock on an unusually large service door.</p>
+
+            <p>"Remember," says Zot, "Lord Maybury is very highly-regarded in the city, so that means we have to apprehend him, not kill him."</p>
+
+            <p>"Can I take his stuff?" asks Gerki.</p>
+
+            <p>"No," says Zot.</p>
+
+            <p>The mechanisms on the other side of the door are unbolted, unlocked, and thrown back.</p>
+
+            <p>The door opens, revealing a small room made of ancient stone. Several very large prison cells, their bars as thick around as some of your wrists, line the sides of the room.</p>
+
+            <p>The contingent of well-armed and very nervous-looking guards escorts you into the room and puts you each in one of the large cages, locking the doors shut behind you.</p>
+
+            <p>Captain Grolnar watches the proceedings from the center of the room, rocking back and forth on his peg-leg and whistling to himself. You realize, as the last cage door locks securely, that now is the perfect time for him to betray you, but he doesn't! Instead, he takes his fat purse of money with his customary garrulousness and incomprehensible sailors' talk, and beats feet -well, foot- out into the night and, hopefully, as far away from Greyport as he can get.</p>
+
+            <p>"Right," says the captain of the guards, after giving your cages a thorough going-over. "That should hold this lot for a bit. Let's go inform his lordship that we've completed the transaction." The guards depart, leaving one of their number behind to stand guard...who promptly falls asleep at the desk in the center of the room.</p>
+
+            <p>Eve casually snaps her fingers and drops your ogre disguises. Though the bars of your cages are sturdy enough to thwart an ogres strength. they are also spaced rather widely apart, and so it is no trouble for you to step between them to freedom. A quick cantrip from Zot unlocks Gog's cage, and suddenly you have the drop on the sleeping guard!</p>
+        </div>
     </div>
 
-    <!-- Central play button -->
-    <div class="audio-controls">
-        <button class="play-btn" id="playAudioBtn" aria-label="Play audio file">
-            <span class="btn-icon">▶️</span>
-            <span>Play Audio &nbsp;🎧</span>
+    <!-- Audio control area: Play button + status + file hint -->
+    <div class="audio-section">
+        <button class="btn-play" id="playAudioBtn" aria-label="Play Red Dragon TTS audio">
+            <span>🎵</span>
+            <span>▶  PLAY AUDIO  ▶</span>
         </button>
+        <div class="status-panel">
+            <div class="status-led" id="statusLed"></div>
+            <span id="audioStatusMsg">🎧 idle · click to hear the dragon</span>
+            <span class="filename-badge">🐉 RedDragonTTSA.mp3</span>
+        </div>
     </div>
-
-    <!-- Status indicator: shows playing / error / ready -->
-    <div class="status-container">
-        <div id="audioStatus" class="status-area">⚡ ready · RedDragonTTSA.mp3</div>
-    </div>
-    <div class="github-hint">
-        🐉 hosted on GitHub Pages • MP3 located in root folder
+    <div class="footer-note">
+        ✦ hosted on GitHub Pages · MP3 must be in the same root folder as index.html ✦
     </div>
 </div>
 
 <script>
     (function() {
-        // ----- CONFIGURATION -----
-        // Audio file path: points to the MP3 in the main folder (same directory as index.html)
-        const AUDIO_SRC = "RedDragonTTSA.mp3";
+        // ----- AUDIO CONFIGURATION -----
+        const AUDIO_FILE = "RedDragonTTSA.mp3";   // same directory as index.html
+        let audio = null;
+        let isLoadError = false;
+        let isAudioReady = false;
         
         // DOM elements
-        const playButton = document.getElementById("playAudioBtn");
-        const statusDiv = document.getElementById("audioStatus");
+        const playBtn = document.getElementById("playAudioBtn");
+        const statusSpan = document.getElementById("audioStatusMsg");
+        const statusLed = document.getElementById("statusLed");
         
-        // Audio object (will be initialized lazily to ensure proper interaction and avoid autoplay restrictions)
-        let audioElement = null;
-        let isAudioLoaded = false;
-        let loadError = false;
-        
-        // Helper to update status text (with optional error styling)
-        function setStatusMessage(message, isError = false) {
-            if (statusDiv) {
-                statusDiv.textContent = message;
+        // Helper: update status text and LED styling
+        function setStatus(message, isPlaying = false, isError = false) {
+            if (statusSpan) {
+                statusSpan.textContent = message;
                 if (isError) {
-                    statusDiv.classList.add("error-msg");
-                    statusDiv.style.background = "#2a1810";
+                    statusSpan.style.color = "#ffaa88";
                 } else {
-                    statusDiv.classList.remove("error-msg");
-                    statusDiv.style.background = "rgba(0, 0, 0, 0.4)";
+                    statusSpan.style.color = "#ddd0bc";
+                }
+            }
+            if (statusLed) {
+                if (isPlaying) {
+                    statusLed.classList.add("playing");
+                    statusLed.style.background = "#e67e22";
+                } else {
+                    statusLed.classList.remove("playing");
+                    if (isError) {
+                        statusLed.style.background = "#b33";
+                        statusLed.style.boxShadow = "0 0 4px #ff6666";
+                    } else {
+                        statusLed.style.background = "#70b570";
+                        statusLed.style.boxShadow = "0 0 4px #9eff9e";
+                    }
                 }
             }
         }
         
-        // Initialize audio element: create, set src, add event handlers
+        // Reset to idle/ready state
+        function setReadyStatus() {
+            if (isLoadError) {
+                setStatus("⚠️ file error — check RedDragonTTSA.mp3", false, true);
+            } else {
+                setStatus("✅ ready · click play", false, false);
+            }
+        }
+        
+        // Initialize audio element (lazy creation, but we preload metadata)
         function initAudio() {
-            if (audioElement !== null) return audioElement;
+            if (audio !== null) return audio;
             
-            const audio = new Audio();
-            audio.preload = "metadata";   // Load enough to get duration & ensure file exists
-            audio.src = AUDIO_SRC;
+            const newAudio = new Audio();
+            newAudio.preload = "metadata";
+            newAudio.src = AUDIO_FILE;
             
-            // --- Event listeners ---
-            audio.addEventListener("canplaythrough", () => {
-                // File is sufficiently loaded and ready for playback without interruptions
-                isAudioLoaded = true;
-                loadError = false;
-                setStatusMessage("✅ audio ready · press play to hear the dragon", false);
-                // enable button in case it was disabled (but we never disable it, just visual feedback)
-                playButton.disabled = false;
+            // Event: audio can play through (loaded enough)
+            newAudio.addEventListener("canplaythrough", () => {
+                isAudioReady = true;
+                isLoadError = false;
+                setReadyStatus();
             });
             
-            audio.addEventListener("error", (e) => {
-                let errorMsg = "⚠️ cannot load audio file.";
-                // Determine specific error type when possible
-                if (audio.error) {
-                    switch (audio.error.code) {
-                        case MediaError.MEDIA_ERR_ABORTED:
-                            errorMsg = "⚠️ audio loading aborted.";
-                            break;
-                        case MediaError.MEDIA_ERR_NETWORK:
-                            errorMsg = "⚠️ network error — check file path / GitHub Pages deployment.";
-                            break;
-                        case MediaError.MEDIA_ERR_DECODE:
-                            errorMsg = "⚠️ audio decode error — file might be corrupted or unsupported format.";
-                            break;
-                        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
-                            errorMsg = "⚠️ file not found or unsupported: 'RedDragonTTSA.mp3' not in root folder.";
-                            break;
-                        default:
-                            errorMsg = "⚠️ unknown audio error.";
+            // Event: error while loading (missing file or network)
+            newAudio.addEventListener("error", (e) => {
+                let errorMsg = "";
+                if (newAudio.error) {
+                    switch (newAudio.error.code) {
+                        case MediaError.MEDIA_ERR_ABORTED: errorMsg = "Loading aborted."; break;
+                        case MediaError.MEDIA_ERR_NETWORK: errorMsg = "Network error — check GitHub Pages path."; break;
+                        case MediaError.MEDIA_ERR_DECODE: errorMsg = "Decode error — file may be corrupt."; break;
+                        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED: errorMsg = "File not found or unsupported format: 'RedDragonTTSA.mp3' missing in root."; break;
+                        default: errorMsg = "Unknown audio error.";
                     }
                 } else {
-                    errorMsg = "⚠️ failed to load 'RedDragonTTSA.mp3'. Make sure it exists in the main folder.";
+                    errorMsg = "Cannot load RedDragonTTSA.mp3 — verify file exists.";
                 }
-                loadError = true;
-                isAudioLoaded = false;
-                setStatusMessage(errorMsg, true);
-                playButton.disabled = false;   // still clickable but will show error again
+                isLoadError = true;
+                isAudioReady = false;
+                setStatus(`❌ ${errorMsg}`, false, true);
+                console.warn("Audio error: ", errorMsg);
             });
             
-            // Optional: when audio ends, reset status to ready + show friendly message
-            audio.addEventListener("ended", () => {
-                setStatusMessage("✔️ playback finished · dragon rests for now", false);
-                // Optional: you could also change button text but we keep it consistent
-                const btnSpan = playButton.querySelector("span:last-child");
-                if (btnSpan) btnSpan.innerHTML = "Play Audio &nbsp;🎧";
-                const iconSpan = playButton.querySelector(".btn-icon");
-                if (iconSpan) iconSpan.textContent = "▶️";
-            });
-            
-            // When playback starts, update status
-            audio.addEventListener("play", () => {
-                setStatusMessage("🔊 playing · voice of the Red Dragon", false);
-                const btnSpan = playButton.querySelector("span:last-child");
-                if (btnSpan) btnSpan.innerHTML = "Playing ... 🐉";
-                const iconSpan = playButton.querySelector(".btn-icon");
-                if (iconSpan) iconSpan.textContent = "🔊";
-            });
-            
-            audio.addEventListener("pause", () => {
-                // only update if not ended? but it's fine, but we do not want to overwrite 'ended' message
-                if (!audio.ended) {
-                    setStatusMessage("⏸️ paused — resume anytime", false);
-                    const btnSpan = playButton.querySelector("span:last-child");
-                    if (btnSpan) btnSpan.innerHTML = "Play Audio &nbsp;🎧";
-                    const iconSpan = playButton.querySelector(".btn-icon");
-                    if (iconSpan) iconSpan.textContent = "▶️";
+            // When playback starts
+            newAudio.addEventListener("play", () => {
+                setStatus("🔊 playing — voice of the Red Dragon", true, false);
+                // Change button text style (optional)
+                if (playBtn) {
+                    const btnSpan = playBtn.querySelector("span:last-child");
+                    if (btnSpan) btnSpan.innerHTML = "🔊  PLAYING ...  🔊";
                 }
             });
             
-            audioElement = audio;
-            return audioElement;
+            // When playback pauses (including end)
+            newAudio.addEventListener("pause", () => {
+                if (!newAudio.ended) {
+                    setStatus("⏸️ paused — resume anytime", false, false);
+                    if (playBtn) {
+                        const btnSpan = playBtn.querySelector("span:last-child");
+                        if (btnSpan) btnSpan.innerHTML = "▶  PLAY AUDIO  ▶";
+                    }
+                }
+            });
+            
+            // When audio finishes
+            newAudio.addEventListener("ended", () => {
+                setStatus("✔️ playback complete · dragon rests", false, false);
+                if (playBtn) {
+                    const btnSpan = playBtn.querySelector("span:last-child");
+                    if (btnSpan) btnSpan.innerHTML = "▶  PLAY AUDIO  ▶";
+                }
+            });
+            
+            audio = newAudio;
+            return audio;
         }
         
-        // Function to play audio safely with user interaction handling
-        async function playAudio() {
-            // Initialize if not created yet (lazy creation ensures we only load when needed)
-            let audio = audioElement;
-            if (!audio) {
-                audio = initAudio();
-            }
-            
-            // Edge-case: if load error occurs and file missing, don't attempt play again?
-            if (loadError) {
-                setStatusMessage("❌ cannot play — audio file missing or invalid. Check RedDragonTTSA.mp3", true);
+        // Warm check on page load: try to pre-initialize just to detect missing file early
+        function warmupFileDetection() {
+            const testAudio = new Audio();
+            testAudio.preload = "metadata";
+            testAudio.src = AUDIO_FILE;
+            testAudio.addEventListener("canplaythrough", () => {
+                // file seems reachable, we'll use main audio instance later
+                if (!isLoadError) {
+                    setStatus("✅ audio file detected · ready to roar", false, false);
+                }
+                isAudioReady = true;
+                // Clean up testAudio reference (avoid multiple instances)
+                testAudio.src = "";
+            });
+            testAudio.addEventListener("error", () => {
+                isLoadError = true;
+                setStatus("⚠️ missing or invalid: RedDragonTTSA.mp3 in root folder", false, true);
+            });
+            // timeout fallback: if after 2s no event, not critical but show pending.
+            setTimeout(() => {
+                if (!isAudioReady && !isLoadError && !testAudio.readyState) {
+                    setStatus("⏳ checking for audio file...", false, false);
+                }
+            }, 300);
+        }
+        
+        // Core: play audio with user interaction handling (restart if already playing)
+        async function playAudioHandler() {
+            // If permanent load error from warmup, don't try to play again 
+            if (isLoadError) {
+                setStatus("❌ cannot play — fix file: RedDragonTTSA.mp3 missing", false, true);
                 return;
             }
             
-            // If audio is currently playing, we could also pause? but requirement is "play audio" button
-            // Better UX: if already playing, do nothing or restart? We'll implement: if playing, reset to start & play.
-            // However typical expectation: pressing play while playing will restart from beginning? 
-            // To respect the "play audio" intention, we will rewind and play if already playing, OR if paused just play.
-            // But user might want to replay. Let's do: If audio is playing, stop and replay from start.
-            // If paused, resume. If ended, replay from 0.
+            let currentAudio = audio;
+            if (!currentAudio) {
+                currentAudio = initAudio();
+            }
+            
+            // If after initialization we still have network error flag (but double-check)
+            if (isLoadError) {
+                setStatus("❌ audio file unavailable, place RedDragonTTSA.mp3 in root", false, true);
+                return;
+            }
+            
             try {
-                if (!audio.paused && !audio.ended) {
-                    // Currently playing, restart from beginning (the "play" button re-triggers from start)
-                    audio.currentTime = 0;
-                    // If it's already playing, we can just set currentTime, keep playing.
-                    // But the button might be used to 'replay' the audio, that's friendly.
-                    // no extra action needed, audio continues playing from 0.
-                    setStatusMessage("🔄 replaying from the dragon's first word", false);
-                    // if audio was playing but we want to ensure it plays (currentTime reset maintains playback)
+                // If audio is already playing, we restart from beginning (this gives a replay action)
+                if (!currentAudio.paused && !currentAudio.ended) {
+                    currentAudio.currentTime = 0;
+                    setStatus("🔄 replay from dragon's first breath", true, false);
+                    // Ensure playback continues (if it was playing, resetting time keeps playing)
                     return;
                 }
                 
-                // If audio is paused or ended, just call play()
-                // Also, if it's in a 'ended' state, calling play will automatically restart from 0 if we don't set currentTime.
-                if (audio.ended) {
-                    audio.currentTime = 0;
+                // If ended or paused, handle appropriate reset
+                if (currentAudio.ended) {
+                    currentAudio.currentTime = 0;
                 }
                 
-                // Important: For browsers, user interaction is already granted because button click triggers this.
-                // Also note: if audio hasn't loaded metadata properly, we may need to wait.
-                if (!isAudioLoaded && !loadError) {
-                    setStatusMessage("⏳ loading audio, please wait...", false);
-                    // Ensure we wait for canplaythrough? but we can attempt and browser buffers.
-                }
-                
-                // Actually call play, catch any DOMException (like not yet loaded interruption)
-                const playPromise = audio.play();
+                // Check if we have loaded enough, but play will trigger buffer
+                const playPromise = currentAudio.play();
                 if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        // This can happen if user tries to play before 'canplaythrough' but usually works
-                        console.warn("Playback prevented or failed: ", error);
-                        if (error.name === "NotAllowedError") {
-                            setStatusMessage("⚠️ interaction required: click again to play", true);
-                        } else if (error.name === "NotSupportedError") {
-                            setStatusMessage("⚠️ audio format not supported or file corrupted", true);
+                    playPromise.catch(err => {
+                        console.warn("playback rejected:", err);
+                        if (err.name === "NotAllowedError") {
+                            setStatus("🔇 interaction required: click again to play", false, true);
+                        } else if (err.name === "NotSupportedError") {
+                            setStatus("⚠️ audio format not supported", false, true);
                         } else {
-                            setStatusMessage("⚠️ playback error: " + (error.message || "unknown"), true);
+                            setStatus(`⚠️ error: ${err.message.substring(0, 60)}`, false, true);
+                        }
+                        // reset button text in case of error
+                        if (playBtn) {
+                            const btnSpan = playBtn.querySelector("span:last-child");
+                            if (btnSpan) btnSpan.innerHTML = "▶  PLAY AUDIO  ▶";
                         }
                     });
                 }
             } catch (err) {
-                console.error("audio play exception", err);
-                setStatusMessage("❗ playback error – verify MP3 exists", true);
+                console.error("audio play exception:", err);
+                setStatus("❗ playback failed — check file integrity", false, true);
             }
         }
         
-        // Optional: pre-initialize audio after the first user interaction? Not needed, but we can preload on page load to detect file errors early
-        // Pre-initializing: will trigger error handlers ASAP so user sees the status without clicking.
-        // However, we need to start loading file to notify about missing file gracefully.
-        // We will create audio on page load but not autoplay — helps immediately detect missing file.
-        function warmupAudioDetection() {
-            const preAudio = new Audio();
-            preAudio.preload = "metadata";
-            preAudio.src = AUDIO_SRC;
-            preAudio.addEventListener("canplaythrough", () => {
-                // Audio is loadable
-                setStatusMessage("✅ RedDragonTTSA.mp3 loaded · ready to roar", false);
-                isAudioLoaded = true;
-                loadError = false;
-                // store preloaded audio element for future use
-                if (!audioElement) {
-                    audioElement = preAudio;
-                    // attach ended/play/pause events that we had defined in initAudio? Better reassign events but keep functions.
-                    // Since initAudio also sets events, we need to merge: we will use the preloaded one but reassign same handlers? 
-                    // To avoid duplication, if we already set audioElement, we use it. But the preAudio has no custom ended/play etc,
-                    // we can replace with our fully featured audio after but it's simpler: just use initAudio for full events.
-                    // So we keep preAudio only for metadata detection, and use initAudio for actual playback.
-                    // However to avoid confusion, we let initAudio create and keep audio element. But we can reuse preAudio?
-                    // The events like 'ended' / 'play' won't be attached to preAudio. So for consistency, we will discard preAudio
-                    // after detection and keep initAudio for full functionality. BUT we will still mark that file exists.
-                    // but if we call initAudio later, it will create new Audio, which also loads again but that's fine.
-                    // improve: we transfer 'src' but anyway, we just keep this detection for status.
+        // Reset button label occasionally when idle (sync)
+        function syncButtonLabel() {
+            if (playBtn && audio && (audio.paused || audio.ended) && !audio.ended) {
+                const btnSpan = playBtn.querySelector("span:last-child");
+                if (btnSpan && btnSpan.innerText !== "▶  PLAY AUDIO  ▶") {
+                    btnSpan.innerHTML = "▶  PLAY AUDIO  ▶";
                 }
-            });
-            preAudio.addEventListener("error", () => {
-                let errMsg = "⚠️ unable to locate RedDragonTTSA.mp3 in root folder. Please confirm the file exists.";
-                setStatusMessage(errMsg, true);
-                loadError = true;
-                isAudioLoaded = false;
-            });
-            // small timeout just in case events don't fire? but fine.
+            } else if (playBtn && audio && audio.playing) {
+                // but we handle in play event, keep consistency
+            }
         }
         
         // Attach click event to play button
-        function bindEvents() {
-            if (playButton) {
-                playButton.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    // If the error state indicates missing file, we can re-attempt warm message
-                    if (loadError) {
-                        setStatusMessage("❌ audio file missing – upload 'RedDragonTTSA.mp3' to repository root", true);
-                        return;
-                    }
-                    // Initialize audio lazily only on first click? But we also want to pre-check file health.
-                    // Let's ensure audio object exists and trigger playAudio.
-                    if (!audioElement) {
-                        initAudio();     // creates audioElement with proper events
-                    }
-                    playAudio();
-                });
-            }
+        if (playBtn) {
+            playBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                playAudioHandler();
+            });
         }
         
-        // On page load, run warm detection so user sees status of file existence (but doesn't use it for playback events)
-        warmupAudioDetection();
-        bindEvents();
+        // Initialize detection on page load (shows missing file early)
+        warmupFileDetection();
         
-        // Optional: For any dynamic context (if GitHub Pages serves correctly), we also handle visibility / focus.
-        // Ensure that if the user clicks several times, we don't create multiple audio overlays.
-        // The pattern is solid: only one audio element, and we reuse it.
-        // Additional improvement: if the user wants to stop, but we only have play button – it's ok.
-        // To match the requirement exactly: "play audio button linked to the mp3 file". We've provided clear and robust logic.
-        // Also we set a fallback – if the warmup detected error but later file becomes available? not required.
-        console.log("Red Dragon Audio Player ready — ensure 'RedDragonTTSA.mp3' is in the same directory as index.html");
+        // Also optional preload idle: create audio on first interaction only to save resources but warmup detection shows file status.
+        // We'll create audio only on first click but warmup already checked existence.
+        // But to ensure proper event binding for play/pause, we will init audio lazily inside playAudioHandler.
+        // For initial status consistency, we don't fully init audio object until needed.
+        // But keep user updated: no extra overhead.
+        
+        // Final minor: if the user clicks while audio loading error resolved manually? fine.
+        // Additionally, add guard for github pages relative path: everything uses relative root.
+        console.log("Red Dragon audio interface ready — file expected: " + AUDIO_FILE);
+        
+        // small interval to sync button label (in case of external weirdness, but not needed mostly)
+        setInterval(() => {
+            if (audio && audio.paused && !audio.ended && !isLoadError) {
+                const btnSpan = playBtn?.querySelector("span:last-child");
+                if (btnSpan && btnSpan.innerHTML !== "▶  PLAY AUDIO  ▶") {
+                    btnSpan.innerHTML = "▶  PLAY AUDIO  ▶";
+                }
+                if (statusSpan && !statusSpan.innerText.includes("paused") && !statusSpan.innerText.includes("ready")) {
+                    setReadyStatus();
+                }
+            }
+        }, 500);
     })();
 </script>
 </body>
